@@ -1,7 +1,6 @@
-redmine-multi-theme
-===================
+# multi-theme
 
-A client side theme selecter for Redmine.
+A client side theme and display settings selecter for Redmine.
 
 
 # Installation
