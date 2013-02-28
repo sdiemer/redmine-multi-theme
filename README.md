@@ -5,7 +5,7 @@ A client side theme and display settings selecter for Redmine.
 
 # Installation
 
-Copy all files of this repository in public/themes/multi-theme
+Copy all files of this repository in "public/themes/multi-theme".
 
 
 # Applying the theme

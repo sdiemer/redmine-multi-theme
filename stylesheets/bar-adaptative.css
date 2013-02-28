@@ -1,9 +1,9 @@
 /* stylesheet to cut side bar in tickets page */
-.controller-issues #sidebar {
+.controller-issues.action-index #sidebar {
     padding-left: 10px;
     padding-bottom: 10px;
 }
-.controller-issues #content {
+.controller-issues.action-index #content {
     width: 100%;
     width: -moz-calc(100% - 20px);
     width: -webkit-calc(100% - 20px);
