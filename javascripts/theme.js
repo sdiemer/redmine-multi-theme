@@ -7,9 +7,10 @@ function ThemeSelecter(options) {
     // params
     this.name = "theme_selecter";
     this.language = "en";
-    this.base_url = "";
+    this.base_url = "/";
     // vars
     this.translations = {};
+    this.font_sizes = [12, 14, 16, 18, 20, 22, 24];
     this.themes_names = ["default", "black-green", "black-blue", "black-purple", "black-brown"];
     this.$menu = null;
     this.current_theme = "default";
@@ -52,14 +53,13 @@ ThemeSelecter.prototype.load_language = function(language) {
             "Colors": "Couleurs",
             "Fonts": "Police",
             "Side bar": "Barre latérale",
-            "Choose %s theme": "Choisir le thème %s",
-            "Choose 12px font (default)": "Choisir la police 12px (défaut)",
-            "Choose 15px font": "Choisir la police 15px",
+            "Font size:": "Taille de la police :",
             "Exemple text with the font used in all pages.": "Exemple de texte avec la police utilisée dans toutes les pages.",
             "Default side bar": "Barre latérale par défaut",
             "The side bar will be displayed in every pages.": "La barre latérale sera affichée dans toues les pages.",
             "Adaptative side bar": "Barre latérale adaptative",
             "The side bar will be shorter in tickets pages.": "La barre latérale sera réduite dans les pages des demandes.",
+            "default": "défaut",
             "Close": "Fermer"
         };
     }
@@ -73,19 +73,29 @@ ThemeSelecter.prototype.init = function() {
     // load theme from cookies
     var theme = this.get_cookie("theme");
     if (theme) {
-        $("head").append("<link href=\""+this.base_url+"/stylesheets/theme-"+theme+".css\" rel=\"stylesheet\" type=\"text/css\"/>");
+        $("head").append("<link href=\""+this.base_url+"stylesheets/theme-"+theme+".css\" rel=\"stylesheet\" type=\"text/css\"/>");
         this.current_theme = theme;
     };
+    if (this.current_theme.indexOf("black") != -1)
+        $("body").addClass("black-theme");
+    else
+        $("body").addClass("white-theme");
     // load font size from cookies
     var font_size = parseInt(this.get_cookie("font_size", 0), 10);
     if (!isNaN(font_size) && font_size > 12) {
-        $("head").append("<style> body { font-size: "+font_size+"px; } </style>");
+        var css = "body { font-size: "+font_size+"px; }";
+        css += " h1, .wiki h1 { font-size: 175%; }";
+        css += " h2, .wiki h2 { font-size: 150%; }";
+        css += " h3, .wiki h2 { font-size: 125%; }";
+        css += " h4, .wiki h4 { font-size: 100%; }";
+        css += " h5, .wiki h5 { font-size: 100%; }";
+        $("head").append("<style>"+css+"</style>");
         this.current_font_size = font_size;
     }
     // load side bar from cookies
     var side_bar = this.get_cookie("side_bar");
     if (side_bar) {
-        $("head").append("<link href=\""+this.base_url+"/stylesheets/bar-"+side_bar+".css\" rel=\"stylesheet\" type=\"text/css\"/>");
+        $("head").append("<link href=\""+this.base_url+"stylesheets/bar-"+side_bar+".css\" rel=\"stylesheet\" type=\"text/css\"/>");
         this.current_side_bar = side_bar;
     }
     // add selecter button
@@ -106,43 +116,43 @@ ThemeSelecter.prototype.open_menu = function() {
         html +=                         "<div id=\"theme_menu_close\" onclick=\""+this.name+".close_menu()\" title=\""+this.translate("Close")+"\">X</div>";
         html +=                     "</div>";
         html +=                     "<div id=\"theme_menu_content\">";
-        html +=                         "<div>";
+        html +=                         "<div class=\"menu-section\">";
         html +=                             "<h2>"+this.translate("Colors")+"</h2>";
-        html +=                             "<div class=\"paragraph\">";
+        html +=                             "<div class=\"menu-content\">";
         for (var i=0; i < this.themes_names.length; i++) {
             var theme_name = this.themes_names[i];
-            var label = this.translate("Choose %s theme").replace(new RegExp("%s", "g"), theme_name);
-            html +=                             "<div class=\"skin "+((theme_name == this.current_theme) ? "active": "")+"\" onclick=\""+this.name+".select_theme('"+theme_name+"')\">";
-            html +=                                 "<h3>"+label+"</h3>";
+            html +=                             "<div class=\"skin "+((this.current_theme == theme_name) ? "active" : "")+"\" onclick=\""+this.name+".select_theme('"+theme_name+"')\">";
+            html +=                                 "<h3>"+theme_name+"</h3>";
             html +=                             "</div>";
         }
         html +=                             "</div>";
         html +=                         "</div>";
-        html +=                         "<div>";
+        html +=                         "<div class=\"menu-section\">";
         html +=                             "<h2>"+this.translate("Fonts")+"</h2>";
-        html +=                             "<div class=\"paragraph\">";
-        html +=                                 "<div class=\"skin\" onclick=\""+this.name+".select_font_size(12)\">";
-        html +=                                     "<h3>"+this.translate("Choose 12px font (default)")+"</h3>";
-        html +=                                     "<p style=\"font: normal 12px Verdana, sans-serif;\">";
-        html +=                                         this.translate("Exemple text with the font used in all pages.");
-        html +=                                     "</p>";
-        html +=                                 "</div>";
-        html +=                                 "<div class=\"skin\" onclick=\""+this.name+".select_font_size(15)\">";
-        html +=                                     "<h3>"+this.translate("Choose 15px font")+"</h3>";
-        html +=                                     "<p style=\"font: normal 15px Verdana, sans-serif;\">";
-        html +=                                         this.translate("Exemple text with the font used in all pages.");
-        html +=                                     "</p>";
-        html +=                                 "</div>";
+        html +=                             "<div class=\"menu-content\">";
+        html +=                                 "<p style=\"line-height: 26px;\">";
+        html +=                                     "<label for=\"theme_font_size\">"+this.translate("Font size:")+"</label> ";
+        html +=                                     "<select id=\"theme_font_size\" onchange=\""+this.name+".font_size_preview();\">";
+        for (var i=0; i < this.font_sizes.length; i++) {
+            var font_size = this.font_sizes[i];
+            html +=                                     "<option value=\""+font_size+"\" style=\"font-size: "+font_size+"px;\" "+((this.current_font_size == font_size) ? "selected=\"selected\"" : "")+">"+font_size+" px"+((i == 0) ? " ("+this.translate("default")+")" : "")+"</option>";
+        }
+        html +=                                     "</select> ";
+        html +=                                     "<button onclick=\""+this.name+".set_font_size();\">"+this.translate("Use")+"</button> ";
+        html +=                                 "</p>";
+        html +=                                 "<p id=\"theme_font_preview\" style=\"font: normal "+this.current_font_size+"px Verdana, sans-serif;\">";
+        html +=                                     this.translate("Exemple text with the font used in all pages.");
+        html +=                                 "</p>";
         html +=                             "</div>";
         html +=                         "</div>";
-        html +=                         "<div>";
+        html +=                         "<div class=\"menu-section\">";
         html +=                             "<h2>"+this.translate("Side bar")+"</h2>";
-        html +=                             "<div class=\"paragraph\">";
-        html +=                                 "<div class=\"skin\" onclick=\""+this.name+".select_side_bar('default')\">";
+        html +=                             "<div class=\"menu-content\">";
+        html +=                                 "<div class=\"skin "+((this.current_side_bar == "default") ? "active" : "")+"\" onclick=\""+this.name+".select_side_bar('default')\">";
         html +=                                    "<h3>"+this.translate("Default side bar")+"</h3>";
         html +=                                    "<p>"+this.translate("The side bar will be displayed in every pages.")+"</p>";
         html +=                                 "</div>";
-        html +=                                 "<div class=\"skin\" onclick=\""+this.name+".select_side_bar('adaptative')\">";
+        html +=                                 "<div class=\"skin "+((this.current_side_bar == "adaptative") ? "active" : "")+"\" onclick=\""+this.name+".select_side_bar('adaptative')\">";
         html +=                                     "<h3>"+this.translate("Adaptative side bar")+"</h3>";
         html +=                                     "<p>"+this.translate("The side bar will be shorter in tickets pages.")+"</p>";
         html +=                                 "</div>";
@@ -175,11 +185,17 @@ ThemeSelecter.prototype.select_theme = function(theme) {
         this.set_cookie("theme", "");
     window.location.reload();
 };
-ThemeSelecter.prototype.select_font_size = function(font_size) {
+ThemeSelecter.prototype.font_size_preview = function() {
+    var font_size = $("#theme_font_size", this.$menu).val();
+    console.log("font: "+font_size);
+    $("#theme_font_preview", this.$menu).css("font-size", font_size+"px");
+};
+ThemeSelecter.prototype.set_font_size = function() {
     this.close_menu();
     if (font_size == this.current_font_size)
         return;
     
+    var font_size = $("#theme_font_size", this.$menu).val();
     this.current_font_size = font_size;
     if (font_size > 12)
         this.set_cookie("font_size", font_size);

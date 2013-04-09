@@ -1,7 +1,12 @@
-/* load the default Redmine stylesheet */
+/* 
+ * Load the default Redmine stylesheet
+ */
 @import url("../../../stylesheets/application.css");
 
-/* special fonts */
+
+/*
+ * Special fonts
+ */
 @font-face {
     font-family: "zeroes_3";
     src: url("../fonts/zeroes_3.ttf") format("truetype");
@@ -11,7 +16,10 @@
     src: url("../fonts/audimat.ttf") format("truetype");
 }
 
-/* theme selection menu css */
+
+/*
+ * Theme selection menu CSS
+ */
 #theme_menu {
     top: 0;
     left: 0;
@@ -20,7 +28,10 @@
     height: 100%;
     display: none;
 }
-#theme_menu * {
+#theme_menu div,
+#theme_menu p,
+#theme_menu h2,
+#theme_menu h3 {
     color: #ccc;
     font-family: audimat;
 }
@@ -49,6 +60,7 @@
     border-radius: 10px;
 }
 #theme_menu #theme_menu_window_bg {
+    overflow: hidden;
     background: #000;
     border-radius: 10px;
 }
@@ -92,48 +104,104 @@
 
 #theme_menu #theme_menu_content {
     padding: 8px;
-    background: #222;
     display: block;
-    border-radius: 10px;
+    overflow: hidden;
+    background: #222;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 #theme_menu #theme_menu_content h2 {
-    background: #000;
-    color: #ccc;
-    margin-left: 4px;
-    margin-right: 4px;
-    margin-top: 8px;
-    margin-bottom: 0;
-    padding: 4px;
+    margin: 0;
+    padding: 6px 8px;
+    color: #fff;
     font-size: 18px;
-    border-radius: 8px;
-}
-#theme_menu #theme_menu_content .paragraph {
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-top: 4px;
-    margin-bottom: 12px;
 }
 #theme_menu #theme_menu_content h3 {
+    margin: 8px 0;
+    padding: 6px;
     background: #444;
     color: #ccc;
-    margin: 8px 0;
-    padding: 4px;
-    font-size: 15px;
+    font-size: 16px;
     border-radius: 6px;
-}
-#theme_menu #theme_menu_content table {
-    display: inline-block;
-}
-#theme_menu #theme_menu_content table td {
-    padding: 16px;
-    vertical-align: top;
 }
 #theme_menu #theme_menu_content .skin {
     cursor: pointer;
 }
-#theme_menu #theme_menu_content .skin:hover h3,
-#theme_menu #theme_menu_content .skin.active h3 {
+#theme_menu #theme_menu_content .skin:hover h3 {
     background: #666;
     color: #fff;
 }
+#theme_menu #theme_menu_content .skin.active {
+    cursor: default;
+}
+#theme_menu #theme_menu_content .skin.active h3 {
+    background: #222;
+    color: #fff;
+    font-style: italic;
+}
+#theme_menu .menu-section {
+    margin: 6px;
+    display: block;
+    float: left;
+    max-width: 380px;
+    overflow: hidden;
+    background: #444;
+    border: 2px solid #444;
+    border-radius: 8px;
+}
+#theme_menu .menu-content {
+    padding: 12px;
+    background: #000;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+#theme_menu #theme_font_size {
+    vertical-align: middle;
+}
+
+
+/* 
+ * Additional CSS for all themes
+ */
+body.black-theme .wiki { margin-left: 40px; }
+body.black-theme .wiki h1 { margin-left: -40px; }
+body.black-theme .wiki h2,
+body.black-theme .wiki h3,
+body.black-theme .wiki h4,
+body.black-theme .wiki h5 { margin-left: -20px; }
+body.black-theme .wiki-page p { margin-left: 2em; }
+
+
+/* 
+ * Additional CSS for all black themes
+ */
+body.black-theme #header,
+body.black-theme #header a { color: #eee; }
+body.black-theme #main-menu li a { color: #eee; border-top-left-radius: 5px; border-top-right-radius: 5px; }
+body.black-theme #main-menu li a:hover { background: #444; color: #fff; }
+body.black-theme #main-menu li a.selected,
+body.black-theme #main-menu li a.selected:hover { color: #fff; }
+body.black-theme table.list { border-color: #333; }
+body.black-theme table.list th { background-color: #333; color: #eee; }
+body.black-theme .odd { background-color: #151515; }
+body.black-theme .even { background-color: #000; }
+/* wiki */
+body.black-theme .wiki { color: #ccc; }
+body.black-theme #content .wiki h1,
+body.black-theme #content .wiki h2,
+body.black-theme #content .wiki h3,
+body.black-theme #content .wiki h4,
+body.black-theme #content .wiki h5 { color: #fff; }
+body.black-theme div.wiki pre { margin-left: 4em; background-color: #222; color: #ddd; border-color: #666; border-radius: 5px; }
+body.black-theme a.wiki-anchor:hover { color: #ddd !important; }
+body.black-theme h1:hover a.wiki-anchor,
+body.black-theme h2:hover a.wiki-anchor,
+body.black-theme h3:hover a.wiki-anchor { color: #888; }
+
+
+/* 
+ * Additional CSS for all white themes
+ */
+
 

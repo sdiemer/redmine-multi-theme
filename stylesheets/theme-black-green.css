@@ -25,7 +25,7 @@ h4 {border-bottom: 1px dotted #444444;}
 
 #account {float:right;}
 
-#header {height:5.3em;margin:0;background-color:#729d49;color:#070707; padding: 4px 8px 0px 6px; position:relative;}
+#header {height:5.3em;margin:0;background-color:#326600;color:#070707; padding: 4px 8px 0px 6px; position:relative;}
 #header a {color:#070707;}
 #header h1 a.ancestor { font-size: 80%; }
 #quick-search {float:right;}
@@ -87,7 +87,7 @@ html>body #content { min-height: 600px; }
 
 #footer {clear: both; border-top: 1px solid #444444; font-size: 0.9em; color: #555555; padding: 5px; text-align:center; background:#000000;}
 
-#login-form table {margin-top:5em; padding:1em; margin-left: auto; margin-right: auto; border: 2px solid #4002c4; background-color:#14003e; }
+#login-form table {margin-top:5em; padding:1em; margin-left: auto; margin-right: auto; border: 2px solid #c44002; background-color:#3e1400; }
 #login-form table td {padding: 6px;}
 #login-form label {font-weight: bold;}
 #login-form input#username, #login-form input#password { width: 300px; }
@@ -584,31 +584,31 @@ div.flash {margin-top: 8px;}
 
 div.flash.error, #errorExplanation {
   background: url(../images/exclamation.png) 8px 50% no-repeat;
-  background-color: #001c00;
-  border-color: #22ff22;
-  color: #77ff77;
+  background-color: #00001c;
+  border-color: #2222ff;
+  color: #7777ff;
 }
 
 div.flash.notice {
   background: url(../images/true.png) 8px 5px no-repeat;
-  background-color: #200000;
-  border-color: #603030;
-  color: #ffa0a0;
+  background-color: #002000;
+  border-color: #306030;
+  color: #a0ffa0;
 }
 
 div.flash.warning, .conflict {
   background: url(../images/warning.png) 8px 5px no-repeat;
-  background-color: #14003e;
-  border-color: #4002c4;
-  color: #8a59f3;
+  background-color: #3e1400;
+  border-color: #c44002;
+  color: #f38a59;
   text-align: left;
 }
 
 .nodata, .warning {
   text-align: center;
-  background-color: #14003e;
-  border-color: #4002c4;
-  color: #8a59f3;
+  background-color: #3e1400;
+  border-color: #c44002;
+  color: #f38a59;
 }
 
 #errorExplanation ul { font-size: 0.9em;}
