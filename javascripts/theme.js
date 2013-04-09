@@ -245,6 +245,6 @@ ThemeSelecter.prototype.set_cookie = function(c_name, value, expiredays) {
 var theme_selecter = new ThemeSelecter({
     name: "theme_selecter",
     language: "fr",
-    base_url: "/themes/multi-theme"
+    base_url: "/themes/multi-theme/"
 });
 
