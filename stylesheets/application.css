@@ -164,13 +164,13 @@
 /* 
  * Additional CSS for all themes
  */
-body.black-theme .wiki { margin-left: 40px; }
-body.black-theme .wiki h1 { margin-left: -40px; }
-body.black-theme .wiki h2,
-body.black-theme .wiki h3,
-body.black-theme .wiki h4,
-body.black-theme .wiki h5 { margin-left: -20px; }
-body.black-theme .wiki-page p { margin-left: 2em; }
+body .wiki { margin-left: 40px; }
+body .wiki h1 { margin-left: -40px; }
+body .wiki h2,
+body .wiki h3,
+body .wiki h4,
+body .wiki h5 { margin-left: -20px; }
+body .wiki-page p { margin-left: 2em; }
 
 
 /* 
