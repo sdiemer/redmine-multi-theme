@@ -164,13 +164,12 @@
 /* 
  * Additional CSS for all themes
  */
-body .wiki { margin-left: 40px; }
-body .wiki h1 { margin-left: -40px; }
+body .wiki { margin-left: 80px; }
+body .wiki h1 { margin-left: -80px; }
 body .wiki h2,
 body .wiki h3,
 body .wiki h4,
-body .wiki h5 { margin-left: -20px; }
-body .wiki-page p { margin-left: 2em; }
+body .wiki h5 { margin-left: -40px; }
 
 
 /* 
@@ -193,7 +192,7 @@ body.black-theme #content .wiki h2,
 body.black-theme #content .wiki h3,
 body.black-theme #content .wiki h4,
 body.black-theme #content .wiki h5 { color: #fff; }
-body.black-theme div.wiki pre { margin-left: 4em; background-color: #222; color: #ddd; border-color: #666; border-radius: 5px; }
+body.black-theme div.wiki pre { background-color: #222; color: #ddd; border-color: #666; border-radius: 5px; }
 body.black-theme a.wiki-anchor:hover { color: #ddd !important; }
 body.black-theme h1:hover a.wiki-anchor,
 body.black-theme h2:hover a.wiki-anchor,
