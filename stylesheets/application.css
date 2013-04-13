@@ -143,7 +143,7 @@
     margin: 6px;
     display: block;
     float: left;
-    max-width: 380px;
+    max-width: 400px;
     overflow: hidden;
     background: #444;
     border: 2px solid #444;
@@ -164,12 +164,17 @@
 /* 
  * Additional CSS for all themes
  */
+body h1, body .wiki h1 { font-size: 175%; }
+body h2, body .wiki h2 { font-size: 150%; }
+body h3, body .wiki h2 { font-size: 125%; }
+body h4, body .wiki h4 { font-size: 100%; }
+body h5, body .wiki h5 { font-size: 100%; }
 body .wiki { margin-left: 80px; }
 body .wiki h1 { margin-left: -80px; }
 body .wiki h2,
-body .wiki h3,
+body .wiki h3 { margin-left: -40px; }
 body .wiki h4,
-body .wiki h5 { margin-left: -40px; }
+body .wiki h5 { margin-left: 0; }
 
 
 /* 

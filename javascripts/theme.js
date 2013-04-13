@@ -10,11 +10,17 @@ function ThemeSelecter(options) {
     this.base_url = "/";
     // vars
     this.translations = {};
-    this.font_sizes = [12, 14, 16, 18, 20, 22, 24];
-    this.themes_names = ["default", "black-green", "black-blue", "black-purple", "black-brown"];
     this.$menu = null;
-    this.current_theme = "default";
+    this.font_sizes = [12, 14, 16, 18, 20, 22, 24];
     this.current_font_size = 12;
+    this.themes = [
+        { name: "default", label: "White - blue (default)" },
+        { name: "black-green", label: "Black - green" },
+        { name: "black-blue", label: "Black - blue" },
+        { name: "black-purple", label: "Black - purple" },
+        { name: "black-brown", label: "Black - brown" }
+    ];
+    this.current_theme = "default";
     this.current_side_bar = "default";
     
     this.allowed_options = [
@@ -59,6 +65,11 @@ ThemeSelecter.prototype.load_language = function(language) {
             "The side bar will be displayed in every pages.": "La barre latérale sera affichée dans toues les pages.",
             "Adaptative side bar": "Barre latérale adaptative",
             "The side bar will be shorter in tickets pages.": "La barre latérale sera réduite dans les pages des demandes.",
+            "White - blue (default)": "Blanc - bleu (défaut)",
+            "Black - green": "Noir - vert",
+            "Black - blue": "Noir - bleu",
+            "Black - purple": "Noir - violet",
+            "Black - brown": "Noir - brun",
             "default": "défaut",
             "Close": "Fermer"
         };
@@ -72,9 +83,31 @@ ThemeSelecter.prototype.init = function() {
     this.load_language(this.language);
     // load theme from cookies
     var theme = this.get_cookie("theme");
-    if (theme) {
-        $("head").append("<link href=\""+this.base_url+"stylesheets/theme-"+theme+".css\" rel=\"stylesheet\" type=\"text/css\"/>");
+    if (theme && theme != "default") {
         this.current_theme = theme;
+        // try to get CSS from local storage to avoid color flickering
+        if (window.localStorage && window.localStorage["css_"+theme]) {
+            $("head").append("<style>"+window.localStorage["css_"+theme]+"</style>");
+        }
+        else {
+            // download CSS
+            $("head").append("<link href=\""+this.base_url+"stylesheets/theme-"+theme+".css\" rel=\"stylesheet\" type=\"text/css\"/>");
+            if (window.localStorage) {
+                // store CSS for next time
+                var obj = this;
+                $.ajax({
+                    url: this.base_url+"stylesheets/theme-"+theme+".css",
+                    dataType: "html",
+                    success: function (response) {
+                        window.localStorage["css_"+theme] = response;
+                    },
+                    error: function(xhr, textStatus, thrownError) {
+                        //console.log("Error when trying to get CSS: "+textStatus+" - "+thrownError);
+                        //console.log(xhr.responseText);
+                    }
+                });
+            }
+        }
     };
     if (this.current_theme.indexOf("black") != -1)
         $("body").addClass("black-theme");
@@ -83,20 +116,14 @@ ThemeSelecter.prototype.init = function() {
     // load font size from cookies
     var font_size = parseInt(this.get_cookie("font_size", 0), 10);
     if (!isNaN(font_size) && font_size > 12) {
-        var css = "body { font-size: "+font_size+"px; }";
-        css += " h1, .wiki h1 { font-size: 175%; }";
-        css += " h2, .wiki h2 { font-size: 150%; }";
-        css += " h3, .wiki h2 { font-size: 125%; }";
-        css += " h4, .wiki h4 { font-size: 100%; }";
-        css += " h5, .wiki h5 { font-size: 100%; }";
-        $("head").append("<style>"+css+"</style>");
         this.current_font_size = font_size;
+        $("head").append("<style>body { font-size: "+font_size+"px; }</style>");
     }
     // load side bar from cookies
     var side_bar = this.get_cookie("side_bar");
     if (side_bar) {
-        $("head").append("<link href=\""+this.base_url+"stylesheets/bar-"+side_bar+".css\" rel=\"stylesheet\" type=\"text/css\"/>");
         this.current_side_bar = side_bar;
+        $("head").append("<link href=\""+this.base_url+"stylesheets/bar-"+side_bar+".css\" rel=\"stylesheet\" type=\"text/css\"/>");
     }
     // add selecter button
     $("#top-menu #account ul").append("<li><a class=\"theme-selection-menu\" href=\"javascript: "+this.name+".open_menu();\">"+this.translate("Display settings")+"</a></li>");
@@ -119,10 +146,10 @@ ThemeSelecter.prototype.open_menu = function() {
         html +=                         "<div class=\"menu-section\">";
         html +=                             "<h2>"+this.translate("Colors")+"</h2>";
         html +=                             "<div class=\"menu-content\">";
-        for (var i=0; i < this.themes_names.length; i++) {
-            var theme_name = this.themes_names[i];
-            html +=                             "<div class=\"skin "+((this.current_theme == theme_name) ? "active" : "")+"\" onclick=\""+this.name+".select_theme('"+theme_name+"')\">";
-            html +=                                 "<h3>"+theme_name+"</h3>";
+        for (var i=0; i < this.themes.length; i++) {
+            var theme = this.themes[i];
+            html +=                             "<div class=\"skin "+((this.current_theme == theme.name) ? "active" : "")+"\" onclick=\""+this.name+".select_theme('"+theme.name+"')\">";
+            html +=                                 "<h3>"+this.translate(theme.label)+"</h3>";
             html +=                             "</div>";
         }
         html +=                             "</div>";
@@ -175,12 +202,14 @@ ThemeSelecter.prototype.close_menu = function() {
 };
 ThemeSelecter.prototype.select_theme = function(theme) {
     this.close_menu();
-    if (theme == this.current_theme)
-        return;
-    
     this.current_theme = theme;
-    if (theme != "default")
+    if (theme != "default") {
         this.set_cookie("theme", theme);
+        // force download of CSS
+        // this allows to refesh CSS in local storage by selecting it
+        if (window.localStorage && window.localStorage["css_"+theme])
+            delete window.localStorage["css_"+theme];
+    }
     else
         this.set_cookie("theme", "");
     window.location.reload();
