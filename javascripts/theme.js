@@ -86,15 +86,12 @@ ThemeSelecter.prototype.init = function() {
     if (theme && theme != "default") {
         this.current_theme = theme;
         // try to get CSS from local storage to avoid color flickering
-        if (window.localStorage && window.localStorage["css_"+theme]) {
-            $("head").append("<style>"+window.localStorage["css_"+theme]+"</style>");
-        }
-        else {
-            // download CSS
-            $("head").append("<link href=\""+this.base_url+"stylesheets/theme-"+theme+".css\" rel=\"stylesheet\" type=\"text/css\"/>");
-            if (window.localStorage) {
+        if (window.localStorage) {
+            if (window.localStorage["css_"+theme]) {
+                $("head").append("<style>"+window.localStorage["css_"+theme]+"</style>");
+            }
+            else {
                 // store CSS for next time
-                var obj = this;
                 $.ajax({
                     url: this.base_url+"stylesheets/theme-"+theme+".css",
                     dataType: "html",
@@ -108,6 +105,8 @@ ThemeSelecter.prototype.init = function() {
                 });
             }
         }
+        // add CSS even if it was loaded from local storage to fix images links
+        $("head").append("<link href=\""+this.base_url+"stylesheets/theme-"+theme+".css\" rel=\"stylesheet\" type=\"text/css\"/>");
     };
     if (this.current_theme.indexOf("black") != -1)
         $("body").addClass("black-theme");
