@@ -60,6 +60,8 @@ ThemeSelecter.prototype.load_language = function(language) {
             "Fonts": "Police",
             "Side bar": "Barre latérale",
             "Font size:": "Taille de la police :",
+            "use": "utiliser",
+            "Preview:": "Aperçu :",
             "Exemple text with the font used in all pages.": "Exemple de texte avec la police utilisée dans toutes les pages.",
             "Default side bar": "Barre latérale par défaut",
             "The side bar will be displayed in every pages.": "La barre latérale sera affichée dans toues les pages.",
@@ -156,17 +158,22 @@ ThemeSelecter.prototype.open_menu = function() {
         html +=                         "<div class=\"menu-section\">";
         html +=                             "<h2>"+this.translate("Fonts")+"</h2>";
         html +=                             "<div class=\"menu-content\">";
-        html +=                                 "<p style=\"line-height: 26px;\">";
-        html +=                                     "<label for=\"theme_font_size\">"+this.translate("Font size:")+"</label> ";
+        html +=                                 "<p>";
+        html +=                                     "<label for=\"theme_font_size\">"+this.translate("Font size:")+"</label>";
+        html +=                                 "</p>";
+        html +=                                 "<p style=\"margin-left: 32px; line-height: 26px;\">";
         html +=                                     "<select id=\"theme_font_size\" onchange=\""+this.name+".font_size_preview();\">";
         for (var i=0; i < this.font_sizes.length; i++) {
             var font_size = this.font_sizes[i];
             html +=                                     "<option value=\""+font_size+"\" style=\"font-size: "+font_size+"px;\" "+((this.current_font_size == font_size) ? "selected=\"selected\"" : "")+">"+font_size+" px"+((i == 0) ? " ("+this.translate("default")+")" : "")+"</option>";
         }
         html +=                                     "</select> ";
-        html +=                                     "<button onclick=\""+this.name+".set_font_size();\">"+this.translate("Use")+"</button> ";
+        html +=                                     "<button onclick=\""+this.name+".set_font_size();\">"+this.translate("use")+"</button> ";
         html +=                                 "</p>";
-        html +=                                 "<p id=\"theme_font_preview\" style=\"font: normal "+this.current_font_size+"px Verdana, sans-serif;\">";
+        html +=                                 "<p>";
+        html +=                                     "<span>"+this.translate("Preview:")+"</span>";
+        html +=                                 "</p>";
+        html +=                                 "<p id=\"theme_font_preview\" style=\"margin-left: 32px; font: normal "+this.current_font_size+"px Verdana, sans-serif;\">";
         html +=                                     this.translate("Exemple text with the font used in all pages.");
         html +=                                 "</p>";
         html +=                             "</div>";
