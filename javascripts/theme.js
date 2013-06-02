@@ -22,6 +22,7 @@ function ThemeSelecter(options) {
     ];
     this.current_theme = "default";
     this.current_side_bar = "default";
+    this.current_projects_layout = "default";
     
     this.allowed_options = [
         "name",
@@ -57,22 +58,24 @@ ThemeSelecter.prototype.load_language = function(language) {
         this.translations = {
             "Display settings": "Paramètres d'apparence",
             "Colors": "Couleurs",
-            "Fonts": "Police",
-            "Side bar": "Barre latérale",
-            "Font size:": "Taille de la police :",
-            "use": "utiliser",
-            "Preview:": "Aperçu :",
-            "Exemple text with the font used in all pages.": "Exemple de texte avec la police utilisée dans toutes les pages.",
-            "Default side bar": "Barre latérale par défaut",
-            "The side bar will be displayed in every pages.": "La barre latérale sera affichée dans toues les pages.",
-            "Adaptative side bar": "Barre latérale adaptative",
-            "The side bar will be shorter in tickets pages.": "La barre latérale sera réduite dans les pages des demandes.",
             "White - blue (default)": "Blanc - bleu (défaut)",
             "Black - green": "Noir - vert",
             "Black - blue": "Noir - bleu",
             "Black - purple": "Noir - violet",
             "Black - brown": "Noir - brun",
+            "Fonts": "Police",
+            "Font size:": "Taille de la police :",
+            "Preview:": "Aperçu :",
+            "Exemple text with the font used in all pages.": "Exemple de texte avec la police utilisée dans toutes les pages.",
+            "Side bar": "Barre latérale",
+            "Default side bar": "Barre latérale par défaut",
+            "The side bar will be displayed in every pages.": "La barre latérale sera affichée dans toues les pages.",
+            "Adaptative side bar": "Barre latérale adaptative",
+            "The side bar will be shorter in tickets pages.": "La barre latérale sera réduite dans les pages des demandes.",
+            "Projects page": "Page des projets",
+            "Number of columns for projets list:": "Nombre de colonnes utilisées pour l'affichage de la liste des projets :",
             "default": "défaut",
+            "apply": "appliquer",
             "Close": "Fermer"
         };
     }
@@ -120,11 +123,22 @@ ThemeSelecter.prototype.init = function() {
         this.current_font_size = font_size;
         $("head").append("<style>body { font-size: "+font_size+"px; }</style>");
     }
-    // load side bar from cookies
+    // load side bar layout from cookies
     var side_bar = this.get_cookie("side_bar");
-    if (side_bar) {
+    if (side_bar && side_bar != "default") {
         this.current_side_bar = side_bar;
         $("head").append("<link href=\""+this.base_url+"stylesheets/bar-"+side_bar+".css\" rel=\"stylesheet\" type=\"text/css\"/>");
+    }
+    // load projects page layout from cookies
+    var projects_layout = this.get_cookie("projects_layout");
+    if (projects_layout && projects_layout != "default") {
+        var nb_columns = 1;
+        try { nb_columns = parseInt(projects_layout[0], 10); } catch (e) {}
+        if (nb_columns > 1) {
+            this.current_projects_layout = projects_layout;
+            var columns_width = parseInt(100 / nb_columns, 10);
+            $("head").append("<style>ul.projects.root { overflow: hidden; } #projects-index ul.projects li.root { float: left; width: "+columns_width+"%; margin-bottom: 2em; }</style>");
+        }
     }
     // add selecter button
     $("#top-menu #account ul").append("<li><a class=\"theme-selection-menu\" href=\"javascript: "+this.name+".open_menu();\">"+this.translate("Display settings")+"</a></li>");
@@ -144,53 +158,69 @@ ThemeSelecter.prototype.open_menu = function() {
         html +=                         "<div id=\"theme_menu_close\" onclick=\""+this.name+".close_menu()\" title=\""+this.translate("Close")+"\">X</div>";
         html +=                     "</div>";
         html +=                     "<div id=\"theme_menu_content\">";
-        html +=                         "<div class=\"menu-section\">";
-        html +=                             "<h2>"+this.translate("Colors")+"</h2>";
-        html +=                             "<div class=\"menu-content\">";
+        
+        html += "<div class=\"menu-section\">";
+        html +=     "<h2>"+this.translate("Colors")+"</h2>";
+        html +=     "<div class=\"menu-content\">";
         for (var i=0; i < this.themes.length; i++) {
             var theme = this.themes[i];
-            html +=                             "<div class=\"skin "+((this.current_theme == theme.name) ? "active" : "")+"\" onclick=\""+this.name+".select_theme('"+theme.name+"')\">";
-            html +=                                 "<h3>"+this.translate(theme.label)+"</h3>";
-            html +=                             "</div>";
+            html +=     "<div class=\"skin "+((this.current_theme == theme.name) ? "active" : "")+"\" onclick=\""+this.name+".select_theme('"+theme.name+"')\">";
+            html +=         "<h3>"+this.translate(theme.label)+"</h3>";
+            html +=     "</div>";
         }
-        html +=                             "</div>";
-        html +=                         "</div>";
-        html +=                         "<div class=\"menu-section\">";
-        html +=                             "<h2>"+this.translate("Fonts")+"</h2>";
-        html +=                             "<div class=\"menu-content\">";
-        html +=                                 "<p>";
-        html +=                                     "<label for=\"theme_font_size\">"+this.translate("Font size:")+"</label>";
-        html +=                                 "</p>";
-        html +=                                 "<p style=\"margin-left: 32px; line-height: 26px;\">";
-        html +=                                     "<select id=\"theme_font_size\" onchange=\""+this.name+".font_size_preview();\">";
+        html +=     "</div>";
+        html += "</div>";
+        
+        html += "<div class=\"menu-section\">";
+        html +=     "<h2>"+this.translate("Fonts")+"</h2>";
+        html +=     "<div class=\"menu-content\">";
+        html +=         "<p style=\"line-height: 32px;\">";
+        html +=             "<label for=\"theme_font_size\">"+this.translate("Font size:")+"</label>";
+        html +=             " <select id=\"theme_font_size\" onchange=\""+this.name+".font_size_preview();\">";
         for (var i=0; i < this.font_sizes.length; i++) {
             var font_size = this.font_sizes[i];
-            html +=                                     "<option value=\""+font_size+"\" style=\"font-size: "+font_size+"px;\" "+((this.current_font_size == font_size) ? "selected=\"selected\"" : "")+">"+font_size+" px"+((i == 0) ? " ("+this.translate("default")+")" : "")+"</option>";
+            html +=             "<option value=\""+font_size+"\" style=\"font-size: "+font_size+"px;\" "+((this.current_font_size == font_size) ? "selected=\"selected\"" : "")+">"+font_size+" px"+((i == 0) ? " ("+this.translate("default")+")" : "")+"</option>";
         }
-        html +=                                     "</select> ";
-        html +=                                     "<button onclick=\""+this.name+".set_font_size();\">"+this.translate("use")+"</button> ";
-        html +=                                 "</p>";
-        html +=                                 "<p>";
-        html +=                                     "<span>"+this.translate("Preview:")+"</span>";
-        html +=                                 "</p>";
-        html +=                                 "<p id=\"theme_font_preview\" style=\"margin-left: 32px; font: normal "+this.current_font_size+"px Verdana, sans-serif;\">";
-        html +=                                     this.translate("Exemple text with the font used in all pages.");
-        html +=                                 "</p>";
-        html +=                             "</div>";
-        html +=                         "</div>";
-        html +=                         "<div class=\"menu-section\">";
-        html +=                             "<h2>"+this.translate("Side bar")+"</h2>";
-        html +=                             "<div class=\"menu-content\">";
-        html +=                                 "<div class=\"skin "+((this.current_side_bar == "default") ? "active" : "")+"\" onclick=\""+this.name+".select_side_bar('default')\">";
-        html +=                                    "<h3>"+this.translate("Default side bar")+"</h3>";
-        html +=                                    "<p>"+this.translate("The side bar will be displayed in every pages.")+"</p>";
-        html +=                                 "</div>";
-        html +=                                 "<div class=\"skin "+((this.current_side_bar == "adaptative") ? "active" : "")+"\" onclick=\""+this.name+".select_side_bar('adaptative')\">";
-        html +=                                     "<h3>"+this.translate("Adaptative side bar")+"</h3>";
-        html +=                                     "<p>"+this.translate("The side bar will be shorter in tickets pages.")+"</p>";
-        html +=                                 "</div>";
-        html +=                             "</div>";
-        html +=                         "</div>";
+        html +=             "</select>";
+        html +=             " <button onclick=\""+this.name+".set_font_size();\">"+this.translate("apply")+"</button> ";
+        html +=         "</p>";
+        html +=         "<p style=\"line-height: 32px;\">";
+        html +=             "<span>"+this.translate("Preview:")+"</span>";
+        html +=             " <span id=\"theme_font_preview\" style=\"font: normal "+this.current_font_size+"px Verdana, sans-serif;\">"+this.translate("Exemple text with the font used in all pages.")+"</span>";
+        html +=         "</p>";
+        html +=     "</div>";
+        html += "</div>";
+        
+        html += "<div class=\"menu-section\">";
+        html +=     "<h2>"+this.translate("Side bar")+"</h2>";
+        html +=     "<div class=\"menu-content\">";
+        html +=         "<div class=\"skin "+((this.current_side_bar == "default") ? "active" : "")+"\" onclick=\""+this.name+".select_side_bar('default')\">";
+        html +=            "<h3>"+this.translate("Default side bar")+"</h3>";
+        html +=            "<p>"+this.translate("The side bar will be displayed in every pages.")+"</p>";
+        html +=         "</div>";
+        html +=         "<div class=\"skin "+((this.current_side_bar == "adaptative") ? "active" : "")+"\" onclick=\""+this.name+".select_side_bar('adaptative')\">";
+        html +=             "<h3>"+this.translate("Adaptative side bar")+"</h3>";
+        html +=             "<p>"+this.translate("The side bar will be shorter in tickets pages.")+"</p>";
+        html +=         "</div>";
+        html +=     "</div>";
+        html += "</div>";
+        
+        html += "<div class=\"menu-section\">";
+        html +=     "<h2>"+this.translate("Projects page")+"</h2>";
+        html +=     "<div class=\"menu-content\">";
+        html +=         "<p>";
+        html +=             "<label for=\"theme_projects_layout\">"+this.translate("Number of columns for projets list:")+"</label>";
+        html +=             " <select id=\"theme_projects_layout\">";
+        html +=                 "<option value=\"default\" "+((this.current_projects_layout == "default") ? "selected=\"selected\"" : "")+">1 ("+this.translate("default")+")</option>";
+        html +=                 "<option value=\"2columns\" "+((this.current_projects_layout == "2columns") ? "selected=\"selected\"" : "")+">2</option>";
+        html +=                 "<option value=\"3columns\" "+((this.current_projects_layout == "3columns") ? "selected=\"selected\"" : "")+">3</option>";
+        html +=                 "<option value=\"4columns\" "+((this.current_projects_layout == "4columns") ? "selected=\"selected\"" : "")+">4</option>";
+        html +=             "</select>";
+        html +=             " <button onclick=\""+this.name+".select_projects_layout();\">"+this.translate("apply")+"</button> ";
+        html +=         "</p>";
+        html +=     "</div>";
+        html += "</div>";
+        
         html +=                     "</div>";
         html +=                 "</div>";
         html +=             "</div>";
@@ -222,15 +252,14 @@ ThemeSelecter.prototype.select_theme = function(theme) {
 };
 ThemeSelecter.prototype.font_size_preview = function() {
     var font_size = $("#theme_font_size", this.$menu).val();
-    console.log("font: "+font_size);
     $("#theme_font_preview", this.$menu).css("font-size", font_size+"px");
 };
 ThemeSelecter.prototype.set_font_size = function() {
     this.close_menu();
+    var font_size = $("#theme_font_size", this.$menu).val();
     if (font_size == this.current_font_size)
         return;
     
-    var font_size = $("#theme_font_size", this.$menu).val();
     this.current_font_size = font_size;
     if (font_size > 12)
         this.set_cookie("font_size", font_size);
@@ -248,6 +277,19 @@ ThemeSelecter.prototype.select_side_bar = function(side_bar) {
         this.set_cookie("side_bar", side_bar);
     else
         this.set_cookie("side_bar", "");
+    window.location.reload();
+};
+ThemeSelecter.prototype.select_projects_layout = function() {
+    this.close_menu();
+    var projects_layout = $("#theme_projects_layout", this.$menu).val();
+    if (projects_layout == this.current_projects_layout)
+        return;
+    
+    this.current_projects_layout = projects_layout;
+    if (projects_layout != "default")
+        this.set_cookie("projects_layout", projects_layout);
+    else
+        this.set_cookie("projects_layout", "");
     window.location.reload();
 };
 
