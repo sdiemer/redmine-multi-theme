@@ -152,6 +152,7 @@
 #theme_menu .menu-section {
     margin: 10px;
     display: block;
+    overflow: hidden;
     background: #444;
     border: 2px solid #444;
     border-radius: 8px;
