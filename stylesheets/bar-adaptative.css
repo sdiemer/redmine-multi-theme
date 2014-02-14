@@ -2,14 +2,14 @@
 .controller-issues.action-index #sidebar {
     padding-left: 10px;
     padding-bottom: 10px;
-}
-.controller-issues.action-index #sidebar h3 {
-    margin-top: 8px;
-    margin-bottom: 5px;
     background: rgba(127, 127, 127, 0.3);
     border-left: 1px solid #888;
     border-bottom: 1px solid #888;
     border-bottom-left-radius: 5px;
+}
+.controller-issues.action-index #sidebar h3 {
+    margin-top: 8px;
+    margin-bottom: 5px;
 }
 .controller-issues.action-index #content {
     width: 100%;
