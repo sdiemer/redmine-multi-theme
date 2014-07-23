@@ -184,6 +184,19 @@ body .wiki h2 { margin-left: -40px; }
 body .wiki h3,
 body .wiki h4,
 body .wiki h5 { margin-left: 0; }
+body #overlay_clock {
+    padding: 1px 6px;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    background: #fff;
+    color: #000;
+    font-family: audimat;
+    font-size: 200%;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-top-left-radius: 5px;
+}
 
 
 /* 
@@ -199,6 +212,11 @@ body.black-theme table.list { border-color: #333; }
 body.black-theme table.list th { background-color: #333; color: #eee; }
 body.black-theme .odd { background-color: #151515; }
 body.black-theme .even { background-color: #000; }
+body.black-theme #overlay_clock {
+    background: #000;
+    color: #fff;
+    border-color: #666;
+}
 /* wiki */
 body.black-theme .wiki { color: #ccc; }
 body.black-theme #content .wiki h1,

@@ -23,6 +23,7 @@ function ThemeSelecter(options) {
     this.current_theme = "default";
     this.current_side_bar = "default";
     this.current_projects_layout = "default";
+    this.current_clock_display = "default";
     
     this.allowed_options = [
         "name",
@@ -140,6 +141,13 @@ ThemeSelecter.prototype.init = function() {
             $("head").append("<style>ul.projects.root { overflow: hidden; } #projects-index ul.projects li.root { float: left; width: "+columns_width+"%; margin-bottom: 2em; }</style>");
         }
     }
+    // load clock display from cookies
+    var clock_display = this.get_cookie("clock_display");
+    if (clock_display && clock_display != "default") {
+        this.current_clock_display = clock_display;
+        $("body").append("<div id=\"overlay_clock\"></div>");
+        this.refresh_clock_display();
+    }
     // add selecter button
     $("#top-menu #account ul").append("<li><a class=\"theme-selection-menu\" href=\"javascript: "+this.name+".open_menu();\">"+this.translate("Display settings")+"</a></li>");
 };
@@ -221,6 +229,17 @@ ThemeSelecter.prototype.open_menu = function() {
         html +=     "</div>";
         html += "</div>";
         
+        html += "<div class=\"menu-section\">";
+        html +=     "<h2>"+this.translate("Clock")+"</h2>";
+        html +=     "<div class=\"menu-content\">";
+        html +=         "<p>";
+        html +=             "<label for=\"theme_clock_display\">"+this.translate("Display clock in every page:")+"</label>";
+        html +=             " <input type=\"checkbox\" id=\"theme_clock_display\" "+((this.current_clock_display == "default") ? "checked=\"checked\"" : "")+">";
+        html +=             " <button onclick=\""+this.name+".select_clock_display();\">"+this.translate("apply")+"</button> ";
+        html +=         "</p>";
+        html +=     "</div>";
+        html += "</div>";
+        
         html +=                     "</div>";
         html +=                 "</div>";
         html +=             "</div>";
@@ -291,6 +310,38 @@ ThemeSelecter.prototype.select_projects_layout = function() {
     else
         this.set_cookie("projects_layout", "");
     window.location.reload();
+};
+ThemeSelecter.prototype.select_clock_display = function() {
+    this.close_menu();
+    var clock_display = $("#theme_clock_display", this.$menu).val();
+    if (clock_display == this.current_clock_display)
+        return;
+    
+    this.current_clock_display = clock_display;
+    if (clock_display != "default")
+        this.set_cookie("clock_display", clock_display);
+    else
+        this.set_cookie("clock_display", "");
+    window.location.reload();
+};
+
+
+ThemeSelecter.prototype.refresh_clock_display = function() {
+    var date = new Date();
+    var y, m, d, H, M, S;
+    //y = date.getFullYear();
+    //m = date.getMonth() + 1;
+    //d = date.getDate();
+    H = date.getHours();
+    M = date.getMinutes();
+    S = date.getSeconds();
+    //var new_date = (y < 10 ? "0"+y : y)+"/"+(m < 10 ? "0"+m : m)+"/"+(d < 10 ? "0"+d : d);
+    var new_hour = (H < 10 ? "0"+H : H)+":"+(M < 10 ? "0"+M : M)+":"+(S < 10 ? "0"+S : S);
+    $("#overlay_clock").html(new_hour);
+    var obj = this;
+    setTimeout(function () {
+        obj.refresh_clock_display();
+    }, 1000);
 };
 
 
