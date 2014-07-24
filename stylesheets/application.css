@@ -173,17 +173,17 @@
 /* 
  * Additional CSS for all themes
  */
-body h1, body .wiki h1 { font-size: 175%; }
-body h2, body .wiki h2 { font-size: 150%; }
-body h3, body .wiki h3 { font-size: 125%; }
-body h4, body .wiki h4 { font-size: 100%; }
-body h5, body .wiki h5 { font-size: 100%; }
-body .wiki { margin-left: 80px; }
-body .wiki h1 { margin-left: -80px; }
-body .wiki h2 { margin-left: -40px; }
-body .wiki h3,
-body .wiki h4,
-body .wiki h5 { margin-left: 0; }
+body h1, body.controller-wiki .wiki h1 { font-size: 175%; }
+body h2, body.controller-wiki .wiki h2 { font-size: 150%; }
+body h3, body.controller-wiki .wiki h3 { font-size: 125%; }
+body h4, body.controller-wiki .wiki h4 { font-size: 100%; }
+body h5, body.controller-wiki .wiki h5 { font-size: 100%; }
+body.controller-wiki .wiki { margin-left: 80px; }
+body.controller-wiki .wiki h1 { margin-left: -80px; }
+body.controller-wiki .wiki h2 { margin-left: -40px; }
+body.controller-wiki .wiki h3,
+body.controller-wiki .wiki h4,
+body.controller-wiki .wiki h5 { margin-left: 0; }
 body #overlay_clock {
     padding: 1px 6px;
     bottom: 0;
