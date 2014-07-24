@@ -75,6 +75,8 @@ ThemeSelecter.prototype.load_language = function(language) {
             "The side bar will be shorter in tickets pages.": "La barre latérale sera réduite dans les pages des demandes.",
             "Projects page": "Page des projets",
             "Number of columns for projets list:": "Nombre de colonnes utilisées pour l'affichage de la liste des projets :",
+            "Clock": "Horloge",
+            "Display a clock in every page.": "Afficher une horloge dans toutes les pages.",
             "default": "défaut",
             "apply": "appliquer",
             "Close": "Fermer"
@@ -233,8 +235,8 @@ ThemeSelecter.prototype.open_menu = function() {
         html +=     "<h2>"+this.translate("Clock")+"</h2>";
         html +=     "<div class=\"menu-content\">";
         html +=         "<p>";
-        html +=             "<label for=\"theme_clock_display\">"+this.translate("Display clock in every page:")+"</label>";
-        html +=             " <input type=\"checkbox\" id=\"theme_clock_display\" "+((this.current_clock_display == "default") ? "checked=\"checked\"" : "")+">";
+        html +=             "<input type=\"checkbox\" id=\"theme_clock_display\" "+((this.current_clock_display == "default") ? "" : "checked=\"checked\"")+">";
+        html +=             " <label for=\"theme_clock_display\">"+this.translate("Display a clock in every page.")+"</label>";
         html +=             " <button onclick=\""+this.name+".select_clock_display();\">"+this.translate("apply")+"</button> ";
         html +=         "</p>";
         html +=     "</div>";
@@ -313,7 +315,7 @@ ThemeSelecter.prototype.select_projects_layout = function() {
 };
 ThemeSelecter.prototype.select_clock_display = function() {
     this.close_menu();
-    var clock_display = $("#theme_clock_display", this.$menu).val();
+    var clock_display = $("#theme_clock_display", this.$menu).is(":checked") ? "on" : "default";
     if (clock_display == this.current_clock_display)
         return;
     
