@@ -229,6 +229,12 @@ body.black-theme a.wiki-anchor:hover { color: #ddd !important; }
 body.black-theme h1:hover a.wiki-anchor,
 body.black-theme h2:hover a.wiki-anchor,
 body.black-theme h3:hover a.wiki-anchor { color: #888; }
+/* custom reports */
+body.black-theme .custom-report {
+    background: #fff;
+    color: #000;
+    overflow: hidden;
+}
 
 
 /* 
