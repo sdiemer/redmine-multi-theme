@@ -229,6 +229,18 @@ body.black-theme a.wiki-anchor:hover { color: #ddd !important; }
 body.black-theme h1:hover a.wiki-anchor,
 body.black-theme h2:hover a.wiki-anchor,
 body.black-theme h3:hover a.wiki-anchor { color: #888; }
+/* diff */
+body.black-theme .diff_out { background: #330000; }
+body.black-theme .diff_out span { background: #550000; }
+body.black-theme .diff_in { background: #003300; }
+body.black-theme .diff_in span { background: #005500; }
+/* scm revision */
+body.black-theme table.filecontent { border-color: #282828; background-color: #181818; color: #ccc; }
+body.black-theme table.filecontent th.filename,
+body.black-theme table.filecontent th { border-color: #282828; background-color: #222; }
+body.black-theme table.filecontent tbody,
+body.black-theme table.filecontent td.line-code pre { font-size: inherit; }
+body.black-theme table.filecontent tr.spacing td { background-color: #000; }
 /* custom reports */
 body.black-theme .custom-report {
     background: #fff;

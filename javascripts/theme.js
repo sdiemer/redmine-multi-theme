@@ -115,7 +115,7 @@ ThemeSelecter.prototype.init = function() {
         }
         // add CSS even if it was loaded from local storage to fix images links
         $("head").append("<link href=\""+this.base_url+"stylesheets/theme-"+theme+".css\" rel=\"stylesheet\" type=\"text/css\"/>");
-    };
+    }
     if (this.current_theme.indexOf("black") != -1)
         $("body").addClass("black-theme");
     else
@@ -330,13 +330,12 @@ ThemeSelecter.prototype.select_clock_display = function() {
 
 ThemeSelecter.prototype.refresh_clock_display = function() {
     var date = new Date();
-    var y, m, d, H, M, S;
-    //y = date.getFullYear();
-    //m = date.getMonth() + 1;
-    //d = date.getDate();
-    H = date.getHours();
-    M = date.getMinutes();
-    S = date.getSeconds();
+    //var y = date.getFullYear();
+    //var m = date.getMonth() + 1;
+    //var d = date.getDate();
+    var H = date.getHours();
+    var M = date.getMinutes();
+    var S = date.getSeconds();
     //var new_date = (y < 10 ? "0"+y : y)+"/"+(m < 10 ? "0"+m : m)+"/"+(d < 10 ? "0"+d : d);
     var new_hour = (H < 10 ? "0"+H : H)+":"+(M < 10 ? "0"+M : M)+":"+(S < 10 ? "0"+S : S);
     $("#overlay_clock").html(new_hour);
