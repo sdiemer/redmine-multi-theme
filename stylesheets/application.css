@@ -255,6 +255,8 @@ html.black-theme .custom-report {
     color: #000;
     overflow: hidden;
 }
+/* context menu */
+html.black-theme #context-menu li > a { color: #000; }
 
 
 /* 
