@@ -4,10 +4,13 @@ html #sidebar {
     margin-bottom: 10px;
     padding-left: 10px;
     padding-bottom: 10px;
-    background: rgba(127, 127, 127, 0.2);
+    background: #eee;
     border-left: 1px solid #888;
     border-bottom: 1px solid #888;
     border-bottom-left-radius: 5px;
+}
+html.black-theme #sidebar {
+    background: #222;
 }
 html #sidebar h3 {
     margin-top: 8px;
