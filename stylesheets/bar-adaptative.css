@@ -1,5 +1,6 @@
 /* stylesheet to cut side bar in tickets page */
-.controller-issues.action-index #sidebar {
+html #sidebar {
+    margin-bottom: 5px;
     padding-left: 10px;
     padding-bottom: 10px;
     background: rgba(127, 127, 127, 0.2);
@@ -7,17 +8,17 @@
     border-bottom: 1px solid #888;
     border-bottom-left-radius: 5px;
 }
-.controller-issues.action-index #sidebar h3 {
+html #sidebar h3 {
     margin-top: 8px;
     margin-bottom: 5px;
 }
-.controller-issues.action-index #content {
+html #content {
     width: 100%;
     width: -moz-calc(100% - 20px);
     width: -webkit-calc(100% - 20px);
     width: calc(100% - 20px);
     border-right: 0 none;
 }
-.controller-issues.action-index .autoscroll {
+html .autoscroll {
     clear: both;
 }
