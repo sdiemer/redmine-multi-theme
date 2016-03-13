@@ -255,6 +255,7 @@ html.black-theme .custom-report {
     color: #000;
     overflow: hidden;
 }
+html.black-theme .mypage-box { color: inherit; }
 /* context menu */
 html.black-theme #context-menu a { color: #000; }
 html.black-theme #context-menu a.disabled { color: #666; }
