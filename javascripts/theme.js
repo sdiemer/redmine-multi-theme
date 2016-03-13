@@ -117,9 +117,9 @@ ThemeSelecter.prototype.init = function() {
         $("head").append("<link href=\""+this.base_url+"stylesheets/theme-"+theme+".css\" rel=\"stylesheet\" type=\"text/css\"/>");
     }
     if (this.current_theme.indexOf("black") != -1)
-        $("body").addClass("black-theme");
+        $("html").addClass("black-theme");
     else
-        $("body").addClass("white-theme");
+        $("html").addClass("white-theme");
     // load font size from cookies
     var font_size = parseInt(this.get_cookie("font_size", 0), 10);
     if (!isNaN(font_size) && font_size > 12) {
