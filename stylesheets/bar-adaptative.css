@@ -1,6 +1,7 @@
 /* stylesheet to cut side bar in tickets page */
 html #sidebar {
-    margin-bottom: 5px;
+    margin-left: 10px;
+    margin-bottom: 10px;
     padding-left: 10px;
     padding-bottom: 10px;
     background: rgba(127, 127, 127, 0.2);
