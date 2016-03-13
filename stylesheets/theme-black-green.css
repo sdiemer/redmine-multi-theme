@@ -140,8 +140,8 @@ table.cal td.today {background:#222200;}
 
 div.tooltip:hover span.tip{ display:block; position:absolute; top:12px; left:24px; width:270px; border:1px solid #aaaaaa; background-color:#000000; padding: 4px; font-size: 0.8em; color:#afafaf; }
 
-table.progress td.closed { background: #451f1f none repeat scroll 0%; }
-table.progress td.done { background: #2c1212 none repeat scroll 0%; }
+table.progress td.closed { background: #99ee66 none repeat scroll 0%; }
+table.progress td.done { background: #99ee66 none repeat scroll 0%; }
 table.progress td.todo { background: #111111 none repeat scroll 0%; }
 p.progress-info {clear: left; font-size: 80%; margin-top:-4px; color:#888888;}
 
