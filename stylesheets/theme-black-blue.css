@@ -119,13 +119,13 @@ p.other-formats { text-align: right; font-size:0.9em; color: #999999; }
 
 em.info {font-style:normal;font-size:90%;color:#777777;display:block;}
 
-input#principal_search, input#user_search {   background: url(../images/magnifier.png) no-repeat 2px 50%; padding-left:20px;   border:1px solid #3d4e61; border-radius:3px; height:1.5em; width:95%; }
+input#principal_search, input#user_search { padding-left:20px;   border:1px solid #3d4e61; border-radius:3px; height:1.5em; width:95%; }
 
-div.flash.error, #errorExplanation {   background: url(../images/exclamation.png) 8px 50% no-repeat;   background-color: #00001c;   border-color: #2222ff;   color: #7777ff; }
+div.flash.error, #errorExplanation { background-color: #00001c;   border-color: #2222ff;   color: #7777ff; }
 
-div.flash.notice {   background: url(../images/true.png) 8px 5px no-repeat;   background-color: #002000;   border-color: #306030;   color: #a0ffa0; }
+div.flash.notice { background-color: #002000;   border-color: #306030;   color: #a0ffa0; }
 
-div.flash.warning, .conflict {   background: url(../images/warning.png) 8px 5px no-repeat;   background-color: #3e1400;   border-color: #c44002;   color: #f38a59;   text-align: left; }
+div.flash.warning, .conflict { background-color: #3e1400;   border-color: #c44002;   color: #f38a59;   text-align: left; }
 
 .nodata, .warning {   text-align: center;   background-color: #3e1400;   border-color: #c44002;   color: #f38a59; }
 
@@ -159,9 +159,9 @@ div.tabs-buttons { position:absolute; right: 0; width: 48px; height: 24px; backg
 
 button.tab-left, button.tab-right {   font-size: 0.9em;   cursor: pointer;   height:24px;   border: 1px solid #333333;   border-bottom: 1px solid #444444;   position:absolute;   padding:4px;   width: 20px;   bottom: -1px; }
 
-button.tab-left {   right: 20px;   background: #111111 url(../images/bullet_arrow_left.png) no-repeat 50% 50%;   border-top-left-radius:3px; }
+button.tab-left {   right: 20px;   background-color: #111111;   border-top-left-radius:3px; }
 
-button.tab-right {   right: 0;   background: #111111 url(../images/bullet_arrow_right.png) no-repeat 50% 50%;   border-top-right-radius:3px; }
+button.tab-right {   right: 0;   background-color: #111111;   border-top-right-radius:3px; }
 
 .diff_out { background: #000033; }
 .diff_out span { background: #000055; }
@@ -192,19 +192,19 @@ h1:hover a.wiki-anchor, h2:hover a.wiki-anchor, h3:hover a.wiki-anchor { display
 
 .task {   position: absolute;   height:8px;   font-size:0.8em;   color:#777777;   padding:0;   margin:0;   line-height:16px;   white-space:nowrap; }
 
-.task_late { background:#000099 url(../images/task_late.png); border: 1px solid #000099; }
-.task_done { background:#39ff39 url(../images/task_done.png); border: 1px solid #39ff39; }
-.task_todo { background:#555555 url(../images/task_todo.png); border: 1px solid #555555; }
+.task_late { background-color:#000099; border: 1px solid #000099; }
+.task_done { background-color:#39ff39; border: 1px solid #39ff39; }
+.task_todo { background-color:#555555; border: 1px solid #555555; }
 
 .task_todo.parent { background: #777777; border: 1px solid #777777; height: 3px;}
 
-.version.task_late { background:#000099 url(../images/milestone_late.png); border: 1px solid #000099; height: 2px; margin-top: 3px;}
-.version.task_done { background:#39ff39 url(../images/milestone_done.png); border: 1px solid #39ff39; height: 2px; margin-top: 3px;}
-.version.task_todo { background:#000000 url(../images/milestone_todo.png); border: 1px solid #000000; height: 2px; margin-top: 3px;}
+.version.task_late { background-color:#000099; border: 1px solid #000099; height: 2px; margin-top: 3px;}
+.version.task_done { background-color:#39ff39; border: 1px solid #39ff39; height: 2px; margin-top: 3px;}
+.version.task_todo { background-color:#000000; border: 1px solid #000000; height: 2px; margin-top: 3px;}
 
-.project.task_late { background:#000099 url(../images/milestone_late.png); border: 1px solid #000099; height: 2px; margin-top: 3px;}
-.project.task_done { background:#39ff39 url(../images/milestone_done.png); border: 1px solid #39ff39; height: 2px; margin-top: 3px;}
-.project.task_todo { background:#000000 url(../images/milestone_todo.png); border: 1px solid #000000; height: 2px; margin-top: 3px;}
+.project.task_late { background-color:#000099; border: 1px solid #000099; height: 2px; margin-top: 3px;}
+.project.task_done { background-color:#39ff39; border: 1px solid #39ff39; height: 2px; margin-top: 3px;}
+.project.task_todo { background-color:#000000; border: 1px solid #000000; height: 2px; margin-top: 3px;}
 
 .version-overdue a, .issue-overdue a, .project-overdue a {color: #0000ff;}
 
