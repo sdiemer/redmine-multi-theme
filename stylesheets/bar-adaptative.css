@@ -26,3 +26,6 @@ html #content {
 html .autoscroll {
     clear: both;
 }
+html table.list {
+    width: auto;
+}
