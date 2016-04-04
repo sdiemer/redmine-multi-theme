@@ -11,7 +11,7 @@ h4 {border-bottom: 1px dotted #444444;}
 #header {height:5.3em;margin:0;background-color:#9d7249;color:#070707; padding: 4px 8px 0px 6px; position:relative;}
 #header a {color:#070707;}
 
-#main-menu li a {   display: block;   color: #000000;   text-decoration: none;   font-weight: bold;   margin: 0;   padding: 4px 10px 4px 10px; }
+#main-menu li a { background: transparent; display: block; color: #000000; text-decoration: none; font-weight: bold; margin: 0; padding: 4px 10px 4px 10px; }
 #main-menu li a:hover {background:#8a6030; color:#000000;}
 #main-menu li a.selected, #main-menu li a.selected:hover {background:#000000; color:#aaaaaa;}
 
