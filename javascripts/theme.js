@@ -6,9 +6,9 @@
 function ThemeSelecter(options) {
     // params
     this.name = "theme_selecter";
-    this.language = "en";
     this.base_url = "/";
     // vars
+    this.default_language = "en";
     this.translations = {};
     this.$menu = null;
     this.font_sizes = [12, 14, 16, 18, 20, 22, 24];
@@ -27,7 +27,6 @@ function ThemeSelecter(options) {
     
     this.allowed_options = [
         "name",
-        "language",
         "base_url"
     ];
     if (options)
@@ -88,7 +87,12 @@ ThemeSelecter.prototype.load_language = function(language) {
 
 ThemeSelecter.prototype.init = function() {
     // set language
-    this.load_language(this.language);
+    var language = this.default_language;
+    if (window.navigator && window.navigator.language)
+        language = window.navigator.language.substring(0, 2).toLowerCase();
+    else if (window.navigator && window.navigator.userLanguage)
+        language = window.navigator.userLanguage.substring(0, 2).toLowerCase();
+    this.load_language(language);
     // load theme from cookies
     var theme = this.get_cookie("theme");
     if (theme && theme != "default") {
@@ -107,7 +111,7 @@ ThemeSelecter.prototype.init = function() {
                         window.localStorage["css_"+theme] = response;
                     },
                     error: function(xhr, textStatus, thrownError) {
-                        //console.log("Error when trying to get CSS: "+textStatus+" - "+thrownError);
+                        console.log("Error when trying to get CSS: "+textStatus+" - "+thrownError);
                         //console.log(xhr.responseText);
                     }
                 });
@@ -157,7 +161,7 @@ ThemeSelecter.prototype.init = function() {
 ThemeSelecter.prototype.open_menu = function() {
     if (!this.$menu) {
         // init menu
-        var html = "";
+        var i, html = "";
         html += "<div id=\"theme_menu\">";
         html +=     "<div id=\"theme_menu_bg\">";
         html +=         "<table id=\"theme_menu_aligner\"><tr><td>";
@@ -172,7 +176,7 @@ ThemeSelecter.prototype.open_menu = function() {
         html += "<div class=\"menu-section\">";
         html +=     "<h2>"+this.translate("Colors")+"</h2>";
         html +=     "<div class=\"menu-content\">";
-        for (var i=0; i < this.themes.length; i++) {
+        for (i=0; i < this.themes.length; i++) {
             var theme = this.themes[i];
             html +=     "<div class=\"skin "+((this.current_theme == theme.name) ? "active" : "")+"\" onclick=\""+this.name+".select_theme('"+theme.name+"')\">";
             html +=         "<h3>"+this.translate(theme.label)+"</h3>";
@@ -187,7 +191,7 @@ ThemeSelecter.prototype.open_menu = function() {
         html +=         "<p style=\"line-height: 32px;\">";
         html +=             "<label for=\"theme_font_size\">"+this.translate("Font size:")+"</label>";
         html +=             " <select id=\"theme_font_size\" onchange=\""+this.name+".font_size_preview();\">";
-        for (var i=0; i < this.font_sizes.length; i++) {
+        for (i=0; i < this.font_sizes.length; i++) {
             var font_size = this.font_sizes[i];
             html +=             "<option value=\""+font_size+"\" style=\"font-size: "+font_size+"px;\" "+((this.current_font_size == font_size) ? "selected=\"selected\"" : "")+">"+font_size+" px"+((i == 0) ? " ("+this.translate("default")+")" : "")+"</option>";
         }
@@ -353,7 +357,7 @@ ThemeSelecter.prototype.get_cookie = function(c_name, c_default) {
             c_start = c_start + c_name.length+1;
             var c_end = document.cookie.indexOf(";", c_start);
             if (c_end == -1) c_end = document.cookie.length;
-            return unescape(document.cookie.substring(c_start, c_end));
+            return window.unescape(document.cookie.substring(c_start, c_end));
         }
     }
     if (c_default !== undefined)
@@ -366,14 +370,12 @@ ThemeSelecter.prototype.set_cookie = function(c_name, value, expiredays) {
         exdate.setDate(exdate.getDate() + expiredays);
     else
         exdate.setDate(exdate.getDate() + 360);
-    document.cookie = c_name+"="+escape(value)+"; expires="+exdate.toUTCString()+"; path=/";
+    document.cookie = c_name+"="+window.escape(value)+"; expires="+exdate.toUTCString()+"; path=/";
 };
 
 
 // init
 var theme_selecter = new ThemeSelecter({
     name: "theme_selecter",
-    language: "fr",
     base_url: "/themes/redmine-multi-theme/"
 });
-
