@@ -36,7 +36,7 @@ function ThemeSelecter(options) {
     $(document).ready(function () {
         obj.init();
     });
-    $(window).keypress(function (event) {
+    $(document).keydown(function (event) {
         if (event.keyCode == 27)
             obj.close_menu();
     });
