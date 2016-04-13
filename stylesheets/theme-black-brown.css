@@ -92,8 +92,8 @@ div#activity dd span.description, #search-results dd span.description { display:
 
 div#version-summary { float:right; width:28%; margin-left: 16px; margin-bottom: 16px; background-color: #000000; }
 
-table#time-report tbody tr.subtotal { font-style: italic; color:#888888;}
-table#time-report tbody tr.subtotal td.hours { color:#4f4f4f; }
+table#time-report tbody tr.subtotal { font-style: italic; color:#999999;}
+table#time-report tbody tr.subtotal td.hours { color:#888888; }
 table#time-report tbody tr.total { font-weight: bold; background-color:#111111; border-top:1px solid #1b1b1b;}
 
 #projects-index ul.projects ul.projects { border-left: 3px solid #1f1f1f; padding-left:1em;}

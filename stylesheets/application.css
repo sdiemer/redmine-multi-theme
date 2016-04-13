@@ -206,8 +206,8 @@ body #overlay_clock {
 html.black-theme body,
 html.black-theme legend,
 html.black-theme #header,
-html.black-theme #header a { color: #eee; }
-html.black-theme #main-menu li a { color: #eee; border-top-left-radius: 5px; border-top-right-radius: 5px; }
+html.black-theme #header a { color: #ddd; }
+html.black-theme #main-menu li a { color: #ddd; border-top-left-radius: 5px; border-top-right-radius: 5px; }
 html.black-theme #main-menu li a:hover { background: #444; color: #fff; }
 html.black-theme #main-menu li a.selected,
 html.black-theme #main-menu li a.selected:hover { color: #fff; }
@@ -217,7 +217,7 @@ html.black-theme h3,
 html.black-theme h4,
 html.black-theme h5 { color: #fff; }
 html.black-theme table.list { border-color: #333; }
-html.black-theme table.list th { background-color: #333; color: #eee; }
+html.black-theme table.list th { background-color: #333; color: #ddd; }
 html.black-theme .odd { background-color: #151515; }
 html.black-theme .even { background-color: #000; }
 html.black-theme #overlay_clock {
