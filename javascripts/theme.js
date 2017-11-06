@@ -22,7 +22,6 @@ function ThemeSelecter(options) {
     ];
     this.current_theme = "default";
     this.current_side_bar = "default";
-    this.current_projects_layout = "default";
     this.current_clock_display = "default";
     
     this.allowed_options = [
@@ -72,8 +71,6 @@ ThemeSelecter.prototype.load_language = function(language) {
             "The side bar will be displayed in every pages.": "La barre latérale sera affichée dans toues les pages.",
             "Adaptative side bar": "Barre latérale adaptative",
             "The side bar will be shorter in tickets pages.": "La barre latérale sera réduite dans les pages des demandes.",
-            "Projects page": "Page des projets",
-            "Number of columns for projets list:": "Nombre de colonnes utilisées pour l'affichage de la liste des projets :",
             "Clock": "Horloge",
             "Display a clock in every page.": "Afficher une horloge dans toutes les pages.",
             "default": "défaut",
@@ -136,17 +133,6 @@ ThemeSelecter.prototype.init = function() {
         this.current_side_bar = side_bar;
         $("head").append("<link href=\""+this.base_url+"stylesheets/bar-"+side_bar+".css\" rel=\"stylesheet\" type=\"text/css\"/>");
     }
-    // load projects page layout from cookies
-    var projects_layout = this.get_cookie("projects_layout");
-    if (projects_layout && projects_layout != "default") {
-        var nb_columns = 1;
-        try { nb_columns = parseInt(projects_layout[0], 10); } catch (e) {}
-        if (nb_columns > 1) {
-            this.current_projects_layout = projects_layout;
-            var columns_width = parseInt(100 / nb_columns, 10);
-            $("head").append("<style>ul.projects.root { overflow: hidden; } #projects-index ul.projects li.root { float: left; width: "+columns_width+"%; margin-bottom: 2em; }</style>");
-        }
-    }
     // load clock display from cookies
     var clock_display = this.get_cookie("clock_display");
     if (clock_display && clock_display != "default") {
@@ -184,7 +170,7 @@ ThemeSelecter.prototype.open_menu = function() {
         }
         html +=     "</div>";
         html += "</div>";
-        
+
         html += "<div class=\"menu-section\">";
         html +=     "<h2>"+this.translate("Fonts")+"</h2>";
         html +=     "<div class=\"menu-content\">";
@@ -193,7 +179,7 @@ ThemeSelecter.prototype.open_menu = function() {
         html +=             " <select id=\"theme_font_size\" onchange=\""+this.name+".font_size_preview();\">";
         for (i=0; i < this.font_sizes.length; i++) {
             var font_size = this.font_sizes[i];
-            html +=             "<option value=\""+font_size+"\" style=\"font-size: "+font_size+"px;\" "+((this.current_font_size == font_size) ? "selected=\"selected\"" : "")+">"+font_size+" px"+((i == 0) ? " ("+this.translate("default")+")" : "")+"</option>";
+            html +=             "<option value=\""+font_size+"\" style=\"font-size: "+font_size+"px;\" "+((this.current_font_size == font_size) ? "selected=\"selected\"" : "")+">"+font_size+" px"+((i === 0) ? " ("+this.translate("default")+")" : "")+"</option>";
         }
         html +=             "</select>";
         html +=             " <button onclick=\""+this.name+".set_font_size();\">"+this.translate("apply")+"</button> ";
@@ -204,7 +190,7 @@ ThemeSelecter.prototype.open_menu = function() {
         html +=         "</p>";
         html +=     "</div>";
         html += "</div>";
-        
+
         html += "<div class=\"menu-section\">";
         html +=     "<h2>"+this.translate("Side bar")+"</h2>";
         html +=     "<div class=\"menu-content\">";
@@ -218,23 +204,7 @@ ThemeSelecter.prototype.open_menu = function() {
         html +=         "</div>";
         html +=     "</div>";
         html += "</div>";
-        
-        html += "<div class=\"menu-section\">";
-        html +=     "<h2>"+this.translate("Projects page")+"</h2>";
-        html +=     "<div class=\"menu-content\">";
-        html +=         "<p>";
-        html +=             "<label for=\"theme_projects_layout\">"+this.translate("Number of columns for projets list:")+"</label>";
-        html +=             " <select id=\"theme_projects_layout\">";
-        html +=                 "<option value=\"default\" "+((this.current_projects_layout == "default") ? "selected=\"selected\"" : "")+">1 ("+this.translate("default")+")</option>";
-        html +=                 "<option value=\"2columns\" "+((this.current_projects_layout == "2columns") ? "selected=\"selected\"" : "")+">2</option>";
-        html +=                 "<option value=\"3columns\" "+((this.current_projects_layout == "3columns") ? "selected=\"selected\"" : "")+">3</option>";
-        html +=                 "<option value=\"4columns\" "+((this.current_projects_layout == "4columns") ? "selected=\"selected\"" : "")+">4</option>";
-        html +=             "</select>";
-        html +=             " <button onclick=\""+this.name+".select_projects_layout();\">"+this.translate("apply")+"</button> ";
-        html +=         "</p>";
-        html +=     "</div>";
-        html += "</div>";
-        
+
         html += "<div class=\"menu-section\">";
         html +=     "<h2>"+this.translate("Clock")+"</h2>";
         html +=     "<div class=\"menu-content\">";
@@ -245,7 +215,7 @@ ThemeSelecter.prototype.open_menu = function() {
         html +=         "</p>";
         html +=     "</div>";
         html += "</div>";
-        
+
         html +=                     "</div>";
         html +=                 "</div>";
         html +=             "</div>";
@@ -302,19 +272,6 @@ ThemeSelecter.prototype.select_side_bar = function(side_bar) {
         this.set_cookie("side_bar", side_bar);
     else
         this.set_cookie("side_bar", "");
-    window.location.reload();
-};
-ThemeSelecter.prototype.select_projects_layout = function() {
-    this.close_menu();
-    var projects_layout = $("#theme_projects_layout", this.$menu).val();
-    if (projects_layout == this.current_projects_layout)
-        return;
-    
-    this.current_projects_layout = projects_layout;
-    if (projects_layout != "default")
-        this.set_cookie("projects_layout", projects_layout);
-    else
-        this.set_cookie("projects_layout", "");
     window.location.reload();
 };
 ThemeSelecter.prototype.select_clock_display = function() {

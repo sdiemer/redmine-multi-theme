@@ -218,8 +218,12 @@ html.black-theme h4,
 html.black-theme h5 { color: #fff; }
 html.black-theme table.list { border-color: #333; }
 html.black-theme table.list th { background-color: #333; color: #ddd; }
-html.black-theme .odd { background-color: #151515; }
-html.black-theme .even { background-color: #000; }
+html.black-theme table.list:not(.odd-even) tbody tr:nth-child(odd),
+html.black-theme .odd,
+html.black-theme #issue-changesets div.changeset:nth-child(odd) { background-color: #151515; }
+html.black-theme table.list:not(.odd-even) tbody tr:nth-child(even),
+html.black-theme .even,
+html.black-theme #issue-changesets div.changeset:nth-child(even) { background-color: #000; }
 html.black-theme #overlay_clock {
     background: #000;
     color: #fff;
@@ -256,6 +260,9 @@ html.black-theme .custom-report {
     overflow: hidden;
 }
 html.black-theme .mypage-box { color: inherit; }
+/* top menu */
+html.black-theme #main-menu .menu-children { background-color: #000; }
+html.black-theme #main-menu .menu-children li a { background-color: #222; }
 /* context menu */
 html.black-theme #context-menu a { color: #000; }
 html.black-theme #context-menu a.disabled { color: #666; }

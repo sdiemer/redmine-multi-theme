@@ -38,7 +38,7 @@ a.issue.closed, a.issue.closed:link, a.issue.closed:visited { color: #666666; te
 a.project.closed, a.project.closed:link, a.project.closed:visited { color: #666666; }
 a.user.locked, a.user.locked:link, a.user.locked:visited {color: #666666;}
 
-#sidebar a.selected {line-height:1.7em; padding:1px 3px 2px 2px; margin-left:-2px; background-color:#462a62; color:#000000; border-radius:2px;}
+#sidebar a.selected {line-height:1.7em; padding:1px 3px 2px 2px; margin-left:-2px; background-color:#462a62; color:#fff; border-radius:2px;}
 
 a#toggle-completed-versions {color:#666666;}
 table.list { border: 1px solid #1b1b1b;  border-collapse: collapse; width: 100%; margin-bottom: 4px; }
